@@ -1,8 +1,7 @@
 import wollok.game.*
-import pepita.*
+import example.*
 
-program juego {
-	game.title("Juego Base")
-	game.addVisual(pepita)
-	game.start()
+program TPFinal {
+  	juego.configurar()
+  	game.start()
 }
