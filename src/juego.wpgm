@@ -1,7 +1,11 @@
 import wollok.game.*
-import example.*
+import main.*
+import musica.*
 
 program TPFinal {
-  	juego.configurar()
+	game.cellSize(50)
+  	juego.ejecutar()
+  	musica.reproducir()
   	game.start()
+
 }

@@ -1,14 +1,26 @@
 import wollok.game.*
+import pantallas.*
+import niveles.*
 
 object juego{//Configurar el tablero y agregar todos los objetos visuales + hacer que interactuen
 
-	var property vidas = 3
+	var property vidas
 	
 	method restarVida(){
 		vidas -= 1
 	}
 	
-
+	method ejecutar(){
+		game.clear()
+		game.height(14)
+	  	game.width(10)
+	  	game.title("Frogger")
+	  	game.boardGround("fondo.png")
+	  	game.addVisual(menu)
+	  	keyboard.enter().onPressDo{nivelUno.configurar()}
+	  	keyboard.i().onPressDo{instruccionesPantalla.mostrar()}
+	  	
+	}
 
 	method dibujarMeta(){
 		const lineaDeMeta = [new LineaDeMeta(position =  game.at(0,13)),
@@ -25,31 +37,15 @@ object juego{//Configurar el tablero y agregar todos los objetos visuales + hace
 	}
 	
 	method agregarVehiculos(){
-		const vehiculos = [new Auto(position = game.at(0,4),estaEnLadoIzq = true),
-						   new Auto(position = game.at(8,6),estaEnLadoIzq = false)]
+		const vehiculos = [new Auto(position = game.at(4,4),estaEnLadoIzq = true),
+						   new Auto(position = game.at(7,6),estaEnLadoIzq = false)]
 		vehiculos.forEach { vehiculo => 
 		game.addVisual(vehiculo)
 		game.onTick(1000, "mov", {vehiculo.moverse()})
+		game.onTick(1000, "verificacion", {vehiculo.verificarSiLlegoAlBorde()})
 		}	
 	}	
 	
-	method configurar(){
-		game.clear()
-		game.height(14)
-	  	game.width(10)
-	  	game.cellSize(50)
-	  	game.title("Juego") 	
-	  	game.boardGround("fondo.jpg")	
-	  	game.addVisualCharacter(sapo)  //Para que se pueda mover con las flechas	
-	  	self.dibujarMeta() //Dibuja la meta final
-	  	self.agregarVehiculos()	//Agrega los vehiculos al escenario
-	  	game.onCollideDo(sapo, { x =>
-	  		
-	  		x.gameOver()
-	  		x.reiniciarPosicionDelSapo()
-
-	  	}) //Llegar a la meta
-	}
 }
 
 class ObjetoVisual{	//Objetos que van a aparecer en la pantalla
@@ -67,7 +63,7 @@ class ObjetoMovible inherits ObjetoVisual{ //Objetos de la pantalla que se van a
 }
 
 object sapo inherits ObjetoVisual(position = game.at(5,0)){//Personaje del jugador
-  override method image() = "wollok.png"
+  override method image() = "rana.png"
 }
 
 class LineaDeMeta inherits ObjetoVisual{//Meta final
@@ -82,27 +78,18 @@ class LineaDeMeta inherits ObjetoVisual{//Meta final
 }
 
 class Auto inherits ObjetoMovible{//Obstaculos 
-	override method image() = "auto.png"	
+	override method image() = "autoAzul.png"	
 	
 	method reiniciarPosicionDelSapo(){
   		sapo.position(game.at(5,0))  
  	}
+ 	method verificarSiLlegoAlBorde(){
+         if(self.position().x() == -1){
+             position = game.at(game.width() - 1,self.position().y())
+         }if(self.position().x() >= game.width()){
+             position = game.at(0,self.position().y())
+         }
+     }
  	
- 	method gameOver(){juego.restarVida() if (juego.vidas() == 0) pantallaMenu.mostrar()} // Cambiar el game.clear por un posible metodo irAMenu()
-}
-object pantallaMenu{
-	
-	method mostrar(){
-		game.clear()
-		game.height(16)
-		game.width(22)
-		game.addVisual(menu)
-		keyboard.p().onPressDo{juego.configurar()} // Despues de apretar P el juego empieza otra vez pero no funciona el whenCollideDo :/
-	}
-}
-
-object menu{
-	var property position = game.origin()
-	
-	method image() = "fondo2.jpg"
+ 	method gameOver(){juego.restarVida() if (juego.vidas() == 0) derrotaPantalla.mostrar()} // Cambiar el game.clear por un posible metodo irAMenu()
 }
