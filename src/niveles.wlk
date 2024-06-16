@@ -22,12 +22,13 @@ class NivelConfig inherits Nivel{
 		game.addVisualCharacter(sapo)
 		juego.agregarVehiculos()
 		juego.vidas(3)
-		game.onCollideDo(sapo, { x =>
-	  		
-	  		x.gameOver()
-	  		x.reiniciarPosicionDelSapo()
-
-	  	})
+		//game.onCollideDo(sapo, { x =>
+	  	//	
+	  	//	x.gameOver()
+	  	//	x.reiniciarPosicionDelSapo()
+		//
+	  	//})
+	  	juego.verificarSiChoco()
 	}
 }
 

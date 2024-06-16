@@ -44,8 +44,24 @@ object juego{//Configurar el tablero y agregar todos los objetos visuales + hace
 		game.onTick(1000, "mov", {vehiculo.moverse()})
 		game.onTick(1000, "verificacion", {vehiculo.verificarSiLlegoAlBorde()})
 		}	
-	}	
+	}
 	
+	method gameOver(){
+		self.restarVida()
+        if(self.vidas() == 0){
+            derrotaPantalla.mostrar()
+        }
+        
+    }	
+	
+	method verificarSiChoco(){
+        game.onCollideDo(sapo, { x =>
+              x.reiniciarPosicionDelSapo()
+            if(x.esAuto()){
+                self.gameOver()
+            }
+          })
+    }
 }
 
 class ObjetoVisual{	//Objetos que van a aparecer en la pantalla
@@ -90,6 +106,8 @@ class Auto inherits ObjetoMovible{//Obstaculos
              position = game.at(0,self.position().y())
          }
      }
+     
+     method esAuto() = true
  	
- 	method gameOver(){juego.restarVida() if (juego.vidas() == 0) derrotaPantalla.mostrar()} // Cambiar el game.clear por un posible metodo irAMenu()
+ 	//method gameOver(){juego.restarVida() if (juego.vidas() == 0) derrotaPantalla.mostrar()} // Cambiar el game.clear por un posible metodo irAMenu()
 }
