@@ -1,6 +1,15 @@
 import wollok.game.*
 
 object juego{//Configurar el tablero y agregar todos los objetos visuales + hacer que interactuen
+
+	var property vidas = 3
+	
+	method restarVida(){
+		vidas -= 1
+	}
+	
+
+
 	method dibujarMeta(){
 		const lineaDeMeta = [new LineaDeMeta(position =  game.at(0,13)),
 						     new LineaDeMeta(position =  game.at(1,13)),
@@ -25,6 +34,7 @@ object juego{//Configurar el tablero y agregar todos los objetos visuales + hace
 	}	
 	
 	method configurar(){
+		game.clear()
 		game.height(14)
 	  	game.width(10)
 	  	game.cellSize(50)
@@ -33,7 +43,12 @@ object juego{//Configurar el tablero y agregar todos los objetos visuales + hace
 	  	game.addVisualCharacter(sapo)  //Para que se pueda mover con las flechas	
 	  	self.dibujarMeta() //Dibuja la meta final
 	  	self.agregarVehiculos()	//Agrega los vehiculos al escenario
-	  	game.onCollideDo(sapo, {meta => meta.reiniciarPosicionDelSapo()}) //Llegar a la meta
+	  	game.onCollideDo(sapo, { x =>
+	  		
+	  		x.gameOver()
+	  		x.reiniciarPosicionDelSapo()
+
+	  	}) //Llegar a la meta
 	}
 }
 
@@ -61,6 +76,9 @@ class LineaDeMeta inherits ObjetoVisual{//Meta final
 	method reiniciarPosicionDelSapo(){
   		sapo.position(game.at(5,0))  
   }
+  
+
+  
 }
 
 class Auto inherits ObjetoMovible{//Obstaculos 
@@ -69,4 +87,22 @@ class Auto inherits ObjetoMovible{//Obstaculos
 	method reiniciarPosicionDelSapo(){
   		sapo.position(game.at(5,0))  
  	}
+ 	
+ 	method gameOver(){juego.restarVida() if (juego.vidas() == 0) pantallaMenu.mostrar()} // Cambiar el game.clear por un posible metodo irAMenu()
+}
+object pantallaMenu{
+	
+	method mostrar(){
+		game.clear()
+		game.height(16)
+		game.width(22)
+		game.addVisual(menu)
+		keyboard.p().onPressDo{juego.configurar()} // Despues de apretar P el juego empieza otra vez pero no funciona el whenCollideDo :/
+	}
+}
+
+object menu{
+	var property position = game.origin()
+	
+	method image() = "fondo2.jpg"
 }
