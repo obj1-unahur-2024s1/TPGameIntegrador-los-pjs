@@ -15,7 +15,7 @@ object juego{//Configurar el tablero y agregar todos los objetos visuales + hace
 		game.height(14)
 	  	game.width(10)
 	  	game.title("Frogger")
-	  	game.boardGround("fondo.png")
+	  	game.boardGround("fondo2.png")
 	  	game.addVisual(menu)
 	  	keyboard.enter().onPressDo{nivelUno.configurar()}
 	  	keyboard.i().onPressDo{instruccionesPantalla.mostrar()}
@@ -23,16 +23,10 @@ object juego{//Configurar el tablero y agregar todos los objetos visuales + hace
 	}
 
 	method dibujarMeta(){
-		const lineaDeMeta = [new LineaDeMeta(position =  game.at(0,13)),
-						     new LineaDeMeta(position =  game.at(1,13)),
-						     new LineaDeMeta(position =  game.at(2,13)),
-						     new LineaDeMeta(position =  game.at(3,13)),
-						     new LineaDeMeta(position =  game.at(4,13)),
+		const lineaDeMeta = [new LineaDeMeta(position =  game.at(2,13)),
 						     new LineaDeMeta(position =  game.at(5,13)),
-						     new LineaDeMeta(position =  game.at(6,13)),
-						     new LineaDeMeta(position =  game.at(7,13)),
-						     new LineaDeMeta(position =  game.at(8,13)),
-						     new LineaDeMeta(position =  game.at(9,13))]
+						     new LineaDeMeta(position =  game.at(8,13))]
+
 		lineaDeMeta.forEach { vehiculo => game.addVisual(vehiculo)}
 	}
 	
