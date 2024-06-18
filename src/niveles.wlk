@@ -1,6 +1,7 @@
 import wollok.game.*
 import main.*
 import pantallas.*
+import obstaculos.*
 
 
 class Nivel{
@@ -8,11 +9,12 @@ class Nivel{
 		game.clear()
 		game.height(14)
 		game.width(10)
-		juego.dibujarMeta()
 	}
 }
 
 class NivelConfig inherits Nivel{
+	
+	var property cantVidas
 	
 	override method configurar(){
 		game.clear()
@@ -20,16 +22,13 @@ class NivelConfig inherits Nivel{
 		game.width(10)
 		juego.dibujarMeta()
 		game.addVisualCharacter(sapo)
+		juego.agregarTroncos()
 		juego.agregarVehiculos()
-		juego.vidas(3)
-		//game.onCollideDo(sapo, { x =>
-	  	//	
-	  	//	x.gameOver()
-	  	//	x.reiniciarPosicionDelSapo()
-		//
-	  	//})
-	  	juego.verificarSiChoco()
+		juego.verificarSiChoco()
+		juego.vidas(cantVidas)
 	}
 }
 
-const nivelUno = new NivelConfig()
+const nivelUno = new NivelConfig(cantVidas = 3)
+
+const nivelDos = new NivelConfig(cantVidas = 1)
