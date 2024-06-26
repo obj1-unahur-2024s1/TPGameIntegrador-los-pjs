@@ -33,3 +33,14 @@ object derrotaPantalla{
 		keyboard.enter().onPressDo{juego.ejecutar()}
 	}
 }
+
+object victoriaPantalla{
+	
+	method mostrar(){
+		game.clear()
+		game.height(14)
+		game.width(10)
+		game.addVisual(pantallaVictoria)
+		keyboard.enter().onPressDo{juego.ejecutar()}
+	}
+}

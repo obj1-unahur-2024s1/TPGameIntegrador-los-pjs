@@ -8,8 +8,14 @@ object juego{//Configurar el tablero y agregar todos los objetos visuales + hace
 
 	var property vidas
 	
+	var property metasCompletadas = 0
+	
 	method restarVida(){
 		vidas -= 1
+	}
+	
+	method sumarMetaConseguida(){
+		metasCompletadas += 1
 	}
 	
 	method ejecutar(){
@@ -32,13 +38,31 @@ object juego{//Configurar el tablero y agregar todos los objetos visuales + hace
         
     }
     
-    method verificarSiChoco(){
+    method victoria(){
+		self.sumarMetaConseguida()
+        if(self.metasCompletadas() == 3){
+            victoriaPantalla.mostrar()
+        }
+        
+    }
+    
+    method verificarSiLlegaAMeta(){ 
         game.onCollideDo(sapo, { x =>
-              x.reiniciarPosicionDelSapo()
+        	if(x.esMeta()){
+        		self.victoria()
+            	x.reiniciarPosicionDelSapo()
+            	game.removeVisual(x)
+            }
+       	})
+    }
+     
+    method verificarSiChoco(){
+        game.onCollideDo(sapo, { x => 
             if(x.esAuto()){
+            	x.reiniciarPosicionDelSapo()
                 self.gameOver()
             }
-          })
+        })
     }
     
     method agregarTroncos(){
@@ -70,7 +94,7 @@ object juego{//Configurar el tablero y agregar todos los objetos visuales + hace
 		}	
 	}
 	
-	method dibujarMeta(){
+	method agregarMetas(){
 		const lineaDeMeta = [new Meta(position =  game.at(2,13)),
 						     new Meta(position =  game.at(5,13)),
 						     new Meta(position =  game.at(8,13))]

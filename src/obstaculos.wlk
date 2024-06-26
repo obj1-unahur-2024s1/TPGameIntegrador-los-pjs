@@ -4,9 +4,9 @@ import pantallas.*
 import niveles.*
 
 object sapo {
-    var property position = game.origin()
+    var property position = game.at(5,0)
 
-    method image() = "rana.png"
+    var property image = "rana.png"
 
     method desplazarADerecha(){
         self.position(self.position().right(1))
@@ -17,7 +17,7 @@ object sapo {
 class Tronco{
     var property position
 
-    method image() = "tronco.png"
+    var property image = "tronco.png"
 
     method desplazarADerecha(){
         self.position(self.position().right(1))
@@ -43,7 +43,7 @@ class Auto{
     var property position
     const estaEnLadoIzq
 
-    method image() = "autoAzul.png"
+    var property image = "autoAzul.png"
 
     method moverse() = if(estaEnLadoIzq) game.onTick(2000, "moverDer", position = position.right(1))
 	else game.onTick(2000, "moverIzq", position = position.left(1))
@@ -65,9 +65,11 @@ class Auto{
 
 class Meta{//Meta final
 	var property position
-	method image() = "meta.png"
+	var property image = "metaDesactivada.png"
 
 	method reiniciarPosicionDelSapo(){
   		sapo.position(game.at(5,0))  
-  }
+  	}
+  	
+  	method esMeta()= true
 }
