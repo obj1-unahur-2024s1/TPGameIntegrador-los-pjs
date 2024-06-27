@@ -15,7 +15,7 @@ class Nivel{
 class NivelConfig inherits Nivel{
 	
 	var property cantVidas
-	var property contadorMetas
+	var property reinicioContadorMetas = 0
 	
 	override method configurar(){
 		game.clear()
@@ -28,11 +28,11 @@ class NivelConfig inherits Nivel{
 		juego.verificarSiChoco()
 		juego.verificarSiLlegaAMeta()
 		juego.vidas(cantVidas)
-		juego.metasCompletadas(contadorMetas)
+		juego.metasContador(reinicioContadorMetas)
 		
 	}
 }
 
-const nivelUno = new NivelConfig(cantVidas = 3, contadorMetas= 0)
+const nivelUno = new NivelConfig(cantVidas = 3)
 
-const nivelDos = new NivelConfig(cantVidas = 1, contadorMetas= 0)
+const nivelDos = new NivelConfig(cantVidas = 1)

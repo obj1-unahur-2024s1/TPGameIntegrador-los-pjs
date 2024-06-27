@@ -12,15 +12,24 @@ object sapo {
         self.position(self.position().right(1))
     }
     
+    method desplazarAIzquierda(){
+        self.position(self.position().left(1))
+    }
+    
 }
 
 class Tronco{
     var property position
+    const property estaEnLadoIzq
 
     var property image = "tronco.png"
 
     method desplazarADerecha(){
         self.position(self.position().right(1))
+    }
+    
+    method desplazarAIzquierda(){
+        self.position(self.position().left(1))
     }
     
     method verificarSiLlegoAlBorde(){
@@ -31,22 +40,41 @@ class Tronco{
          }
      }
 
-    method arrastrar(){
-        if(self.position() == sapo.position() and sapo.position().y() == self.position().y()){
+    method arrastrarDerecha(){ // este
+        if(self.position() == sapo.position() /*and sapo.position().y() == self.position().y()*/){
             sapo.desplazarADerecha()
         }
     }
+    
+    method arrastrarIzquierda(){
+        if(self.position() == sapo.position() /*and sapo.position().y() == self.position().y()*/){
+            sapo.desplazarAIzquierda()
+        }
+    }
+    
+    method esAuto() = false
+    
+    method esMeta()= false
+    
 }
 
 class Auto{
 	
     var property position
-    const estaEnLadoIzq
+    const property estaEnLadoIzq
 
-    var property image = "autoAzul.png"
+    var property image
 
-    method moverse() = if(estaEnLadoIzq) game.onTick(2000, "moverDer", position = position.right(1))
-	else game.onTick(2000, "moverIzq", position = position.left(1))
+    /*method moverse() = if(estaEnLadoIzq) game.onTick(2000, "moverDer", position = position.right(1))
+	else game.onTick(2000, "moverIzq", position = position.left(1))*/
+	
+	method desplazarADerecha(){
+        self.position(self.position().right(1))
+    }
+    
+    method desplazarAIzquierda(){
+        self.position(self.position().left(1))
+    }
 	
 	method reiniciarPosicionDelSapo(){
   		sapo.position(game.at(5,0))  
