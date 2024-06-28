@@ -1,4 +1,4 @@
-Frogger
+## FROGGER
 
 ## Equipo de desarrollo
 
@@ -9,11 +9,12 @@ Frogger
 
 ## Capturas
 
-(agregar)*Capturas a agregar: menu y controles*
+(agregar) //Capturas a agregar: menu y controles*
 
 ## Reglas de Juego / Instrucciones
 
 Nuestro juego es una pequeña imitacion del juego Frogger. El objetivo del juego es lograr que la rana cruce la calle esquivando a los autos que se generan en la calle y, llegando al último fragmento del nivel, nuestra rana deberá atravesar el río saltando entre los troncos para poder alcanzar las metas del nivel, evitando caerse al agua.
+
 *Agregar Capturas de: Protagonista, Sapo, Rio, mapa en general*
 
 
