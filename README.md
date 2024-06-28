@@ -1,4 +1,4 @@
-*## FROGGER*
+# FROGGER
 
 ## Equipo de desarrollo
 
