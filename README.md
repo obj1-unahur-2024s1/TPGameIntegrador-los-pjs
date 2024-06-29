@@ -9,7 +9,7 @@
 
 ## Capturas
 
-(agregar) //Capturas a agregar: menu y controles*
+(agregar) //Capturas a agregar: menu y controles
 
 ## Reglas de Juego / Instrucciones
 
