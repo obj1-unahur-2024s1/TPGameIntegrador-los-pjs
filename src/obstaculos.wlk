@@ -18,11 +18,39 @@ object sapo {
     
 }
 
-class Tronco{
-    var property position
-    const property estaEnLadoIzq
+class Obstaculo{
+	//var property position
+	
+	//var property image
+	
+	method esAuto()
+    
+    method esMeta()
+    
+    method esAgua()
+    
+    method esTronco()
+    
+}
 
-    var property image = "tronco.png"
+
+
+
+
+class Tronco inherits Obstaculo{
+	var property position
+	
+	var property image = "tronco.png"
+    
+    const property estaEnLadoIzq
+    
+    override method esAuto() = false
+    
+    override method esMeta()= false
+    
+    override method esAgua() = false
+    
+    override method esTronco() = true
 
     method desplazarADerecha(){
         self.position(self.position().right(1))
@@ -31,14 +59,6 @@ class Tronco{
     method desplazarAIzquierda(){
         self.position(self.position().left(1))
     }
-    
-    method verificarSiLlegoAlBorde(){
-         if(self.position().x() == -1){
-             position = game.at(game.width() - 1,self.position().y())
-         }if(self.position().x() >= game.width()){
-             position = game.at(0,self.position().y())
-         }
-     }
 
     method arrastrarDerecha(){ // este
         if(self.position() == sapo.position() /*and sapo.position().y() == self.position().y()*/){
@@ -51,22 +71,33 @@ class Tronco{
             sapo.desplazarAIzquierda()
         }
     }
-    
-    method esAuto() = false
-    
-    method esMeta()= false
-    
+     
+    method verificarSiLlegoAlBorde(){
+         if(self.position().x() == -1){
+             position = game.at(game.width() - 1,self.position().y())
+         }if(self.position().x() >= game.width()){
+             position = game.at(0,self.position().y())
+         }
+     }
+     
+    // method reiniciarPosicionDelSapo(){}
 }
 
-class Auto{
+class Auto inherits Obstaculo{
 	
-    var property position
+	var property position
+	
+	var property image
+    
     const property estaEnLadoIzq
-
-    var property image
-
-    /*method moverse() = if(estaEnLadoIzq) game.onTick(2000, "moverDer", position = position.right(1))
-	else game.onTick(2000, "moverIzq", position = position.left(1))*/
+    
+    override method esAuto() = true
+    
+    override method esMeta()= false
+    
+    override method esAgua() = false
+    
+    override method esTronco() = false
 	
 	method desplazarADerecha(){
         self.position(self.position().right(1))
@@ -87,17 +118,59 @@ class Auto{
              position = game.at(0,self.position().y())
          }
      }
-     
-     method esAuto() = true
 }
 
-class Meta{//Meta final
+class Meta inherits Obstaculo{//Meta final
+
 	var property position
+	
 	var property image = "metaDesactivada.png"
 
 	method reiniciarPosicionDelSapo(){
   		sapo.position(game.at(5,0))  
   	}
   	
-  	method esMeta()= true
+    override method esAuto() = false
+    
+    override method esMeta()= true
+    
+    override method esAgua() = false
+    
+    override method esTronco() = false
+}
+
+class Agua inherits Obstaculo{//Objeto Invisible
+
+	var property position
+	
+	const property estaEnLadoIzq
+    
+    override method esAuto() = false
+    
+    override method esMeta()= false
+    
+    override method esAgua() = true
+    
+    override method esTronco() = false
+    
+
+    method desplazarADerecha(){
+        self.position(self.position().right(1))
+    }
+    
+    method desplazarAIzquierda(){
+        self.position(self.position().left(1))
+    }
+	
+	method reiniciarPosicionDelSapo(){
+  		sapo.position(game.at(5,0))  
+ 	}
+ 	
+ 	method verificarSiLlegoAlBorde(){
+         if(self.position().x() == -1){
+             position = game.at(game.width() - 1,self.position().y())
+         }if(self.position().x() >= game.width()){
+             position = game.at(0,self.position().y())
+         }
+     }
 }

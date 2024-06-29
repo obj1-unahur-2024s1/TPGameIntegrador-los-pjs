@@ -25,8 +25,9 @@ class NivelConfig inherits Nivel{
 		game.addVisualCharacter(sapo)
 		juego.agregarTroncos()
 		juego.agregarVehiculos()
+		juego.agregarAgua()
 		juego.verificarSiChoco()
-		juego.verificarSiLlegaAMeta()
+		//juego.verificarSiLlegaAMeta()
 		juego.vidas(cantVidas)
 		juego.metasContador(reinicioContadorMetas)
 		

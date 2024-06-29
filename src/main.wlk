@@ -46,7 +46,7 @@ object juego{//Configurar el tablero y agregar todos los objetos visuales + hace
         
     }
     
-    method verificarSiLlegaAMeta(){ 
+    /*method verificarSiLlegaAMeta(){ 
         game.onCollideDo(sapo, { x =>
         	if(x.esMeta()){
         		self.victoria()
@@ -54,37 +54,45 @@ object juego{//Configurar el tablero y agregar todos los objetos visuales + hace
             	game.removeVisual(x)
             }
        	})
-    }
+    }*/
      
     method verificarSiChoco(){
-        game.onCollideDo(sapo, { x => 
-            if(x.esAuto()){
+        game.onCollideDo(sapo, { x =>
+        	if(x.esMeta()){
+        		game.removeVisual(x)
+        		self.victoria()
+            	x.reiniciarPosicionDelSapo()
+            	
+            }
+        	
+            if(x.esAuto() or x.esAgua()){
             	x.reiniciarPosicionDelSapo()
                 self.gameOver()
             }
-        })
+            
+          })
     }
     
     method agregarTroncos(){
-		const troncos = [new Tronco(position = game.at(2,11), estaEnLadoIzq = true),
-							new Tronco(position = game.at(3,11), estaEnLadoIzq = true),
-							new Tronco(position = game.at(4,11), estaEnLadoIzq = true),
-							new Tronco(position = game.at(0,12), estaEnLadoIzq = false),
-							new Tronco(position = game.at(1,12), estaEnLadoIzq = false),
-                        	new Tronco(position = game.at(2,12), estaEnLadoIzq = false)]
+		const troncos =[new Tronco(position = game.at(2,11), estaEnLadoIzq = true),
+						new Tronco(position = game.at(3,11), estaEnLadoIzq = true),
+						new Tronco(position = game.at(4,11), estaEnLadoIzq = true),
+						new Tronco(position = game.at(0,12), estaEnLadoIzq = false),
+						new Tronco(position = game.at(1,12), estaEnLadoIzq = false),
+                        new Tronco(position = game.at(2,12), estaEnLadoIzq = false)]
 
     	troncos.forEach({o =>
     		if(o.estaEnLadoIzq()){
     			game.addVisual(o)
-        		game.onTick(1000, "arrastrar", {o.arrastrarIzquierda()})
-        		game.onTick(1000, "mov", {o.desplazarAIzquierda()})
-        		game.onTick(1000, "verificacion", {o.verificarSiLlegoAlBorde()})
+        		game.onTick(500, "arrastrar", {o.arrastrarIzquierda()})
+        		game.onTick(500, "x", {o.desplazarAIzquierda()})
+        		game.onTick(500, "z", {o.verificarSiLlegoAlBorde()})
     		}
     		else{
     			game.addVisual(o)
-        		game.onTick(1000, "arrastrar", {o.arrastrarDerecha()})
-        		game.onTick(1000, "mov", {o.desplazarADerecha()})
-        		game.onTick(1000, "verificacion", {o.verificarSiLlegoAlBorde()})
+        		game.onTick(500, "arrastrar", {o.arrastrarDerecha()})
+        		game.onTick(500, "a", {o.desplazarADerecha()})
+        		game.onTick(500, "s", {o.verificarSiLlegoAlBorde()})
     		} 
         
         })
@@ -104,13 +112,13 @@ object juego{//Configurar el tablero y agregar todos los objetos visuales + hace
     	vehiculos.forEach({vehiculo =>
     		if(vehiculo.estaEnLadoIzq()){
     			game.addVisual(vehiculo)
-        		game.onTick(1000, "mov", {vehiculo.desplazarAIzquierda()})
-        		game.onTick(1000, "verificacion", {vehiculo.verificarSiLlegoAlBorde()})
+        		game.onTick(500, "mov", {vehiculo.desplazarAIzquierda()})
+        		game.onTick(500, "verificacion", {vehiculo.verificarSiLlegoAlBorde()})
     		}
     		else{
     			game.addVisual(vehiculo)
-        		game.onTick(1000, "mov", {vehiculo.desplazarADerecha()})
-        		game.onTick(1000, "verificacion", {vehiculo .verificarSiLlegoAlBorde()})
+        		game.onTick(500, "mov", {vehiculo.desplazarADerecha()})
+        		game.onTick(500, "verificacion", {vehiculo .verificarSiLlegoAlBorde()})
     		} 
         
         })					   
@@ -123,4 +131,35 @@ object juego{//Configurar el tablero y agregar todos los objetos visuales + hace
 
 		lineaDeMeta.forEach { meta => game.addVisual(meta)}
 	}
+	
+	method agregarAgua(){
+        const aguas =[new Agua(position = game.at(0,11), estaEnLadoIzq = true),
+                      new Agua(position = game.at(1,11), estaEnLadoIzq = true),
+                      new Agua(position = game.at(5,11), estaEnLadoIzq = true),
+                      new Agua(position = game.at(6,11), estaEnLadoIzq = true),
+                      new Agua(position = game.at(7,11), estaEnLadoIzq = true),
+                      new Agua(position = game.at(8,11), estaEnLadoIzq = true),
+                      new Agua(position = game.at(9,11), estaEnLadoIzq = true),
+                      new Agua(position = game.at(10,11), estaEnLadoIzq = true),
+                      new Agua(position = game.at(3,12), estaEnLadoIzq = false),
+                      new Agua(position = game.at(4,12), estaEnLadoIzq = false),
+                      new Agua(position = game.at(5,12), estaEnLadoIzq = false),
+                      new Agua(position = game.at(6,12), estaEnLadoIzq = false),
+                      new Agua(position = game.at(7,12), estaEnLadoIzq = false),
+                      new Agua(position = game.at(8,12), estaEnLadoIzq = false),
+                      new Agua(position = game.at(9,12), estaEnLadoIzq = false),
+                      new Agua(position = game.at(10,12), estaEnLadoIzq = false)]
+        aguas.forEach({a => 
+            if(a.estaEnLadoIzq()){
+    			game.addVisual(a)
+        		game.onTick(495, "x", {a.desplazarAIzquierda()})
+        		game.onTick(495, "a", {a.verificarSiLlegoAlBorde()})
+    		}
+    		else{
+    			game.addVisual(a)
+        		game.onTick(495, "z", {a.desplazarADerecha()})
+        		game.onTick(495, "d", {a .verificarSiLlegoAlBorde()})
+    		} 
+        })
+    }
 }
