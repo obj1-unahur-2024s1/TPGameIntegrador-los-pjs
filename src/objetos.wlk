@@ -4,12 +4,17 @@ import pantallas.*
 import niveles.*
 
 object sapo {
-    var property position = game.at(5,0)
+    var property position = game.at(6,0)
 
-    var property image = "rana.png"    
+    var property image = "rana.png"
+    
+    method textoDanio(){
+    	return "Ouch!"
+    }    
 }
 
 class Obstaculo{
+	var property image
 	
 	var property position
 	
@@ -17,7 +22,9 @@ class Obstaculo{
 	
     method esObstaculo()
     
-    method esMosca()
+    method esMosca()= false
+    
+    method esCorona()= false
     
     method desplazarADerecha(){
         self.position(self.position().right(1))
@@ -41,25 +48,17 @@ class Obstaculo{
     
 }
 
-class Auto inherits Obstaculo{
-	
-	var property image
+class Auto inherits Obstaculo{	
     
     override method esObstaculo()= true
-    
-    override method esMosca()= false
 }
 
 class Cocodrilo inherits Obstaculo{
-	
-	var property image
     
 	override method esObstaculo()= true
-    
-    override method esMosca()= false
 }
 
-class Mosca { //Meta final
+object mosca { //Meta final
 
 	var property position
 	
@@ -68,6 +67,8 @@ class Mosca { //Meta final
 	method esObstaculo() = false
     
     method esMosca()= true
+    
+    method esCorona()= false
 
 	method reiniciarPosicionDelSapo(){
   		sapo.position(game.at(5,0))  
@@ -78,4 +79,36 @@ class Mosca { //Meta final
         const y = 4.randomUpTo(game.height()-1).truncate(0)
         position = game.at(x,y)
     }
+}
+
+object corona { //Meta final
+
+	var property position =  game.at(7,17)
+	
+	var property image = "corona.png"
+	
+	method esObstaculo() = false
+    
+    method esMosca()= false
+    
+    method esCorona()= true
+    
+    method reiniciarPosicionDelSapo(){
+  		sapo.position(game.at(5,0))  
+  	}
+}
+
+object visualVida{
+	
+	var property image = "vidas_3.png"
+	
+	method position() = game.at(0,17)
+	
+	method resetVisual(){image = "vidas_3.png"}
+	
+	method actualizarVisual(){
+		if (juego.vidas()== 2) image = "vidas_2.png" else image = "vidas_1.png"
+	}
+
+	
 }

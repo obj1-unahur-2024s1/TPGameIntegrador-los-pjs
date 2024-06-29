@@ -1,6 +1,11 @@
+import main.*
+import niveles.*
+import objetos.*
 
-test "testX" {
+test "El nivel 1 empieza con 3 vidas"{
+    assert.equals(3,nivelUno.cantVidas())
+}
 
-	assert.that(true)
-
+test "El nivel 2 solo tiene una vida"{
+    assert.equals(1,nivelDos.cantVidas())
 }

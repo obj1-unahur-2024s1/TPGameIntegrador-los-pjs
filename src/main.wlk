@@ -1,12 +1,16 @@
 import wollok.game.*
 import pantallas.*
 import niveles.*
-import obstaculos.*
+import objetos.*
 
 
 object juego{ //Configurar el tablero y agregar todos los objetos visuales + hacer que interactuen
 
 	var property vidas
+	
+	var property maximoDeMoscas
+	
+	//var property cocodrilosEnCruz
 	
 	var property contadorDeMoscas = 0
 	
@@ -32,6 +36,8 @@ object juego{ //Configurar el tablero y agregar todos los objetos visuales + hac
 	
 	method gameOver(){ // Si las vidas llegan a 0 sale la pantalla de derrota
 		self.restarVida()
+		visualVida.actualizarVisual()
+		game.say(sapo, sapo.textoDanio())
         if(self.vidas() == 0){
             derrotaPantalla.mostrar()
         }
@@ -40,7 +46,7 @@ object juego{ //Configurar el tablero y agregar todos los objetos visuales + hac
     
     method victoria(){ // Si el contador de moscas llega a x cantidad sale la pantalla de victoria
 		self.sumarMoscaConseguida()
-        if(self.contadorDeMoscas() == 100){
+        if(self.contadorDeMoscas() == (maximoDeMoscas+1)){
             victoriaPantalla.mostrar()
         }
         
@@ -48,18 +54,16 @@ object juego{ //Configurar el tablero y agregar todos los objetos visuales + hac
      
     method verificarColision(){ // Verifica la colision con los distintos objetos
         game.onCollideDo(sapo, { x =>
-            if(x.esMosca()){
+            if(x.esMosca() or x.esCorona()){
                 self.victoria()
-                x.reaparecerAlAzar()
+                if (contadorDeMoscas == maximoDeMoscas){ x.reiniciarPosicionDelSapo() game.removeVisual(mosca) self.agregarCorona()}
+                if(contadorDeMoscas < maximoDeMoscas and maximoDeMoscas > contadorDeMoscas){x.reaparecerAlAzar() x.reiniciarPosicionDelSapo()}  
             }
-            if(x.esObstaculo()){             
-                self.gameOver()
-            }
-            x.reiniciarPosicionDelSapo()
+            if(x.esObstaculo()){self.gameOver() x.reiniciarPosicionDelSapo()}
           })
     }
 	
-	method agregarVehiculos(){ // "autoRojo.png" "autoAzul.png" "autoNegro.png"
+	method agregarVehiculos(velocidad){ // "autoRojo.png" "autoAzul.png" "autoNegro.png"
 		const vehiculos = [new Auto(position = game.at(0,1),estaEnLadoIzq = true, image = "autoRojo.png"),
 						   new Auto(position = game.at(6,2),estaEnLadoIzq = false, image = "autoAzulInvertido.png"),
 						   new Auto(position = game.at(9,3),estaEnLadoIzq = true, image = "autoNegro.png"),
@@ -73,38 +77,76 @@ object juego{ //Configurar el tablero y agregar todos los objetos visuales + hac
 						   
     	vehiculos.forEach({vehiculo =>
     		if(vehiculo.estaEnLadoIzq()){
-        		game.onTick(300, "mov", {vehiculo.desplazarAIzquierda()})
+        		game.onTick(velocidad, "mov", {vehiculo.desplazarAIzquierda()})
     		}
     		else{    			
-        		game.onTick(300, "mov", {vehiculo.desplazarADerecha()})        		
+        		game.onTick(velocidad, "mov", {vehiculo.desplazarADerecha()})        		
     		}
     		game.addVisual(vehiculo)
-    		game.onTick(300, "verificacion", {vehiculo .verificarSiLlegoAlBorde()})        
+    		game.onTick(velocidad, "verificacion", {vehiculo .verificarSiLlegoAlBorde()})        
         })					   
 	}
-	
-	method agregarCocodrilos(){ // Crea los cocodrilos y agrega el visual al tablero
-		const cocodrilos =[new Cocodrilo(position = game.at(0,12),estaEnLadoIzq = true, image = "autoRojo.png"),
-			new Cocodrilo(position = game.at(1,13),estaEnLadoIzq = true, image = "autoRojo.png"),
-			new Cocodrilo(position = game.at(2,14),estaEnLadoIzq = true, image = "autoRojo.png"),
-			new Cocodrilo(position = game.at(3,15),estaEnLadoIzq = true, image = "autoRojo.png"),
-			new Cocodrilo(position = game.at(4,16),estaEnLadoIzq = true, image = "autoRojo.png")]
+	// Crea los cocodrilos y agrega el visual al tablero
+	method agregarCocodrilos(velocidad, dificil){
+		 
+		if(not dificil){ 
+		const cocodrilos =
+			[new Cocodrilo(position = game.at(0,12),estaEnLadoIzq = true, image = "cocodrilo.png"),
+			new Cocodrilo(position = game.at(1,13),estaEnLadoIzq = true, image = "cocodrilo.png"),
+			new Cocodrilo(position = game.at(2,14),estaEnLadoIzq = true, image = "cocodrilo.png"),
+			new Cocodrilo(position = game.at(3,15),estaEnLadoIzq = true, image = "cocodrilo.png"),
+			new Cocodrilo(position = game.at(4,16),estaEnLadoIzq = true, image = "cocodrilo.png"),
+			
+			new Cocodrilo(position = game.at(7,12),estaEnLadoIzq = true, image = "cocodrilo.png"),
+			new Cocodrilo(position = game.at(8,13),estaEnLadoIzq = true, image = "cocodrilo.png"),
+			new Cocodrilo(position = game.at(9,14),estaEnLadoIzq = true, image = "cocodrilo.png"),
+			new Cocodrilo(position = game.at(10,15),estaEnLadoIzq = true, image = "cocodrilo.png"),
+			new Cocodrilo(position = game.at(11,16),estaEnLadoIzq = true, image = "cocodrilo.png")]
 						   
     	cocodrilos.forEach({cocodrilo =>
     		if(cocodrilo.estaEnLadoIzq()){
-        		game.onTick(300, "mov", {cocodrilo.desplazarAIzquierda()})
+        		game.onTick(velocidad, "mov", {cocodrilo.desplazarAIzquierda()})
     		}
     		else{    			
-        		game.onTick(300, "mov", {cocodrilo.desplazarADerecha()})        		
+        		game.onTick(velocidad, "mov", {cocodrilo.desplazarADerecha()})        		
     		}
     		game.addVisual(cocodrilo)
-    		game.onTick(300, "verificacion", {cocodrilo .verificarSiLlegoAlBorde()})        
-        })					   
+    		game.onTick(velocidad, "verificacion", {cocodrilo .verificarSiLlegoAlBorde()})        
+        })
+        }else{
+		const cocodrilos =
+			[new Cocodrilo(position = game.at(0,12),estaEnLadoIzq = false, image = "cocodriloInvertido.png"),
+			new Cocodrilo(position = game.at(1,13),estaEnLadoIzq = false, image = "cocodriloInvertido.png"),
+			new Cocodrilo(position = game.at(2,14),estaEnLadoIzq = false, image = "cocodriloInvertido.png"),
+			new Cocodrilo(position = game.at(3,15),estaEnLadoIzq = false, image = "cocodriloInvertido.png"),
+			new Cocodrilo(position = game.at(4,16),estaEnLadoIzq = false, image = "cocodriloInvertido.png"),
+			
+			new Cocodrilo(position = game.at(9,12),estaEnLadoIzq = true, image = "cocodrilo.png"),
+			new Cocodrilo(position = game.at(8,13),estaEnLadoIzq = true, image = "cocodrilo.png"),
+			new Cocodrilo(position = game.at(7,14),estaEnLadoIzq = true, image = "cocodrilo.png"),
+			new Cocodrilo(position = game.at(6,15),estaEnLadoIzq = true, image = "cocodrilo.png"),
+			new Cocodrilo(position = game.at(5,16),estaEnLadoIzq = true, image = "cocodrilo.png")]
+						   
+    	cocodrilos.forEach({cocodrilo =>
+    		if(cocodrilo.estaEnLadoIzq()){
+        		game.onTick(velocidad, "mov", {cocodrilo.desplazarAIzquierda()})
+    		}
+    		else{    			
+        		game.onTick(velocidad, "mov", {cocodrilo.desplazarADerecha()})        		
+    		}
+    		game.addVisual(cocodrilo)
+    		game.onTick(velocidad, "verificacion", {cocodrilo .verificarSiLlegoAlBorde()})        
+        })        	
+        }					   
 	}
 	
+	
+	
 	method agregarMosca(){ // Crea la mosca y agrega el visual al tablero
-		const mosca = new Mosca(position =  game.center())
 		mosca.reaparecerAlAzar()
 		game.addVisual(mosca)
+	}
+	method agregarCorona(){ // Agrega el visual de la corona al tablero
+		game.addVisual(corona)
 	}
 }
