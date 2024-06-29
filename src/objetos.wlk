@@ -58,7 +58,7 @@ class Cocodrilo inherits Obstaculo{
 	override method esObstaculo()= true
 }
 
-object mosca { //Meta final
+object mosca {
 
 	var property position
 	
@@ -98,17 +98,34 @@ object corona { //Meta final
   	}
 }
 
-object visualVida{
-	
-	var property image = "vidas_3.png"
-	
-	method position() = game.at(0,17)
-	
-	method resetVisual(){image = "vidas_3.png"}
-	
-	method actualizarVisual(){
-		if (juego.vidas()== 2) image = "vidas_2.png" else image = "vidas_1.png"
-	}
+class Estadisticas{
+    method position()
 
-	
+    method esObstaculo() = false
+
+    method esMosca()= false
+
+    method esCorona()= false
+
+}
+
+object visualVida inherits Estadisticas{
+    var property image = "vidas_3.png"
+
+    override method position() = game.at(0,17)
+
+    method actualizarVisual(){
+        if (juego.vidas()== 3) image = "vidas_3.png"
+        if (juego.vidas()== 2) image = "vidas_2.png"
+        if (juego.vidas()== 1) image = "vidas_1.png" 
+    }
+}
+
+object moscasRestantes inherits Estadisticas{
+    override method position() = game.at(2,17)
+
+    method text() = "Moscas restantes: " + (juego.maximoDeMoscas() - juego.contadorDeMoscas())
+
+    method textColor() = "fc00ff"
+
 }

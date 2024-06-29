@@ -21,23 +21,22 @@ class NivelConfig inherits Nivel{
 	const property reinicioContadorMetas = 0
 	
 	override method configurar(){
-		game.clear()
-		game.height(18)
-	  	game.width(14)
-	  	sapo.position(game.at(6,0))
-	  	game.addVisualCharacter(sapo)
-	  	visualVida.resetVisual()
-	  	game.addVisual(visualVida)
-		juego.vidas(cantVidas)
-		juego.maximoDeMoscas(maxDeMoscas)
-		juego.contadorDeMoscas(reinicioContadorMetas)
-		juego.agregarMosca()
-		juego.agregarVehiculos(velocidadObstaculos)
-		juego.agregarCocodrilos(velocidadObstaculos, modoDificil)
-		juego.verificarColision()
-
-		
-	}
+        game.clear()
+        game.height(18)
+        game.width(14)
+        sapo.position(game.at(6,0))
+        game.addVisualCharacter(sapo)
+        visualVida.actualizarVisual()
+        game.addVisual(visualVida)
+        game.addVisual(moscasRestantes)
+        juego.vidas(cantVidas)
+        juego.maximoDeMoscas(maxDeMoscas)
+        juego.contadorDeMoscas(reinicioContadorMetas)
+        juego.agregarMosca()
+        juego.agregarVehiculos(velocidadObstaculos)
+        juego.agregarCocodrilos(velocidadObstaculos, modoDificil)
+        juego.verificarColision()
+    }
 }
 
 const nivelUno = new NivelConfig(cantVidas = 3, maxDeMoscas = 5, velocidadObstaculos = 300, modoDificil = false)
