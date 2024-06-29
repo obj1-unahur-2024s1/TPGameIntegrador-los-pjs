@@ -3,19 +3,28 @@
 ## Equipo de desarrollo
 
 - Folcher Fernando.
-- Lopez Matías.
-- Diaz Lautaro.
+- López Matías.
+- Díaz Lautaro.
 - Bejarano Marcos.
 
 ## Capturas
-
 (agregar) //Capturas a agregar: menu y controles
+
+Menú del juego:
+
+-
+
+Controles:
+
+-
+
+
 
 ## Reglas de Juego / Instrucciones
 
-Nuestro juego es una pequeña imitación del clásico juego **Frogger** . El objetivo del juego es lograr que la rana cruce la ruta esquivando el transito de la misma y, llegando al último fragmento, se deberá atravesar el río saltando sobre los troncos para poder alcanzar las metas del nivel, evitando caerse al agua.
+Nuestro juego está inspirado en el clásico juego **Frogger** . El objetivo del juego es lograr que la rana obtenga la corona de oro. Para que esta aparezca, primero debemos comer todas las moscas que se generan aleatoriamente en el mapa, cruzando la calle esquivando el tránsito de la misma. También debe ir evitando morir con los autos que se crucen y así como también a los cocodrilos que aparecen por el río. Nuestra rana es acuática, por lo que puede pasar por el río sin problemas. Cuando la rana coma la última mosca la corona de oro aparecerá al otro lado del río. 
 
-*Agregar Capturas de: Protagonista, Sapo, Rio, mapa en general*
+*Agregar Capturas de: Sapo, Rio, mapa en general*
 
 
 ## Otros
