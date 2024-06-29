@@ -7,8 +7,8 @@ import obstaculos.*
 class Nivel{
 	method configurar(){
 		game.clear()
-		game.height(14)
-		game.width(10)
+		game.height(18)
+	  	game.width(14)
 	}
 }
 
@@ -19,17 +19,15 @@ class NivelConfig inherits Nivel{
 	
 	override method configurar(){
 		game.clear()
-		game.height(14)
-		game.width(10)
-		juego.agregarMetas()
+		game.height(18)
+	  	game.width(14)
+		juego.agregarMosca()
 		game.addVisualCharacter(sapo)
-		juego.agregarTroncos()
 		juego.agregarVehiculos()
-		juego.agregarAgua()
-		juego.verificarSiChoco()
-		//juego.verificarSiLlegaAMeta()
+		juego.agregarCocodrilos()
+		juego.verificarColision()
 		juego.vidas(cantVidas)
-		juego.metasContador(reinicioContadorMetas)
+		juego.contadorDeMoscas(reinicioContadorMetas)
 		
 	}
 }

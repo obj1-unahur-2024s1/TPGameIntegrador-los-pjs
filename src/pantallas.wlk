@@ -16,8 +16,8 @@ object instruccionesPantalla{
 	
 	method mostrar(){
 		game.clear()
-		game.height(14)
-		game.width(10)
+		game.height(18)
+	  	game.width(14)
 		game.addVisual(pantallaInstrucciones)
 		keyboard.m().onPressDo{juego.ejecutar()}
 	}
@@ -27,8 +27,8 @@ object derrotaPantalla{
 	
 	method mostrar(){
 		game.clear()
-		game.height(14)
-		game.width(10)
+		game.height(18)
+	  	game.width(14)
 		game.addVisual(pantallaDerrota)
 		keyboard.enter().onPressDo{juego.ejecutar()}
 	}
@@ -38,8 +38,8 @@ object victoriaPantalla{
 	
 	method mostrar(){
 		game.clear()
-		game.height(14)
-		game.width(10)
+		game.height(18)
+	  	game.width(14)
 		game.addVisual(pantallaVictoria)
 		keyboard.enter().onPressDo{juego.ejecutar()}
 	}
