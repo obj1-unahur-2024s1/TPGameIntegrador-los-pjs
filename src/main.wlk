@@ -10,8 +10,6 @@ object juego{ //Configurar el tablero y agregar todos los objetos visuales + hac
 	
 	var property maximoDeMoscas
 	
-	//var property cocodrilosEnCruz
-	
 	var property contadorDeMoscas = 0
 	
 	method restarVida(){ // Disminuye en 1 las vidas
@@ -86,8 +84,8 @@ object juego{ //Configurar el tablero y agregar todos los objetos visuales + hac
     		game.onTick(velocidad, "verificacion", {vehiculo .verificarSiLlegoAlBorde()})        
         })					   
 	}
-	// Crea los cocodrilos y agrega el visual al tablero
-	method agregarCocodrilos(velocidad, dificil){
+	
+	method agregarCocodrilos(velocidad, dificil){ // Crea los cocodrilos y agrega el visual al tablero
 		 
 		if(not dificil){ 
 		const cocodrilos =
@@ -139,8 +137,6 @@ object juego{ //Configurar el tablero y agregar todos los objetos visuales + hac
         })        	
         }					   
 	}
-	
-	
 	
 	method agregarMosca(){ // Crea la mosca y agrega el visual al tablero
 		mosca.reaparecerAlAzar()

@@ -81,7 +81,7 @@ object mosca {
     }
 }
 
-object corona { //Meta final
+object corona {
 
 	var property position =  game.at(7,17)
 	
@@ -99,6 +99,7 @@ object corona { //Meta final
 }
 
 class Estadisticas{
+	
     method position()
 
     method esObstaculo() = false
