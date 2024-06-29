@@ -103,13 +103,13 @@ object juego{ //Configurar el tablero y agregar todos los objetos visuales + hac
 						   
     	cocodrilos.forEach({cocodrilo =>
     		if(cocodrilo.estaEnLadoIzq()){
-        		game.onTick(velocidad, "mov", {cocodrilo.desplazarAIzquierda()})
+        		game.onTick(velocidad, "mov1", {cocodrilo.desplazarAIzquierda()})
     		}
     		else{    			
-        		game.onTick(velocidad, "mov", {cocodrilo.desplazarADerecha()})        		
+        		game.onTick(velocidad, "mov2", {cocodrilo.desplazarADerecha()})        		
     		}
     		game.addVisual(cocodrilo)
-    		game.onTick(velocidad, "verificacion", {cocodrilo .verificarSiLlegoAlBorde()})        
+    		game.onTick(velocidad, "verificacion1", {cocodrilo .verificarSiLlegoAlBorde()})        
         })
         }else{
 		const cocodrilos =
@@ -127,13 +127,13 @@ object juego{ //Configurar el tablero y agregar todos los objetos visuales + hac
 						   
     	cocodrilos.forEach({cocodrilo =>
     		if(cocodrilo.estaEnLadoIzq()){
-        		game.onTick(velocidad, "mov", {cocodrilo.desplazarAIzquierda()})
+        		game.onTick(velocidad, "mov3", {cocodrilo.desplazarAIzquierda()})
     		}
     		else{    			
-        		game.onTick(velocidad, "mov", {cocodrilo.desplazarADerecha()})        		
+        		game.onTick(velocidad, "mov4", {cocodrilo.desplazarADerecha()})        		
     		}
     		game.addVisual(cocodrilo)
-    		game.onTick(velocidad, "verificacion", {cocodrilo .verificarSiLlegoAlBorde()})        
+    		game.onTick(velocidad, "verificacion2", {cocodrilo .verificarSiLlegoAlBorde()})        
         })        	
         }					   
 	}
