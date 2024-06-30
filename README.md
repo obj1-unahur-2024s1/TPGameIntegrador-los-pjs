@@ -49,9 +49,11 @@ Nuestro juego está inspirado en el clásico juego **Frogger** . El objetivo del
 
 ## Niveles/dificultad
 
-Primer nivel: Comenzamos con 3 vidas y el objetivo es comer 5 moscas para poder alcanzar la corona.
+Primer nivel: Comenzamos con 3 vidas y el objetivo es comer 5 moscas para poder alcanzar la corona. Cada vez que perdamos una vida, la rana comenzará en la posicion inicial y no se perderan las moscas obtenidas previamente.
 
 Segundo nivel (dificil): Comenzamos con solo una vida y el objetivo es comer 10 moscas para poder alcanzar la corona, además los autos son un poco mas rápidos que en el nivel anterior y los cocodrilos que se encuentran en el rio tienen un patrón de movimiento diferente para que sea un poco mas emocionante.
+
+En ambos niveles, cada vez que se coma una mosca, la rana reaparecera en la posicion inicial. 
 
 ## Otros
 
