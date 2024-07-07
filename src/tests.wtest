@@ -3,11 +3,11 @@ import niveles.*
 import objetos.*
 
 test "El nivel 1 empieza con 3 vidas"{
-    assert.equals(3,nivelUno.cantVidas())
+    assert.equals(3,modoNormal.cantVidas())
 }
 
 test "El nivel 2 solo tiene una vida"{
-    assert.equals(1,nivelDos.cantVidas())
+    assert.equals(1,modoDificil.cantVidas())
 }
 
 test "Sapo se queja cuando pierde una vida"{
@@ -27,23 +27,15 @@ test "Obtener una mosca"{
 }
 
 test "Hay que obtener 5 moscas en nivel 1"{
-    assert.equals(5,nivelUno.maxDeMoscas())
+    assert.equals(5,modoNormal.maxDeMoscas())
 }
 
 test "Hay que obtener 10 moscas en nivel 2"{
-    assert.equals(10,nivelDos.maxDeMoscas())
-}
-
-test "El nivel 1 no es dificil"{
-	assert.notThat(nivelUno.modoDificil())
-}
-
-test "El nivel 2 es dificil"{
-	assert.that(nivelDos.modoDificil())
+    assert.equals(10,modoDificil.maxDeMoscas())
 }
 
 test "Los autos del segundo nivel se mueven mas rapido que los del primero"{
-	assert.that(nivelUno.velocidadObstaculos()>nivelDos.velocidadObstaculos()) 
+	assert.that(modoNormal.velocidadObstaculos()>modoDificil.velocidadObstaculos()) 
 }
 /** En la dificultad 2 se mueven mas rapido debido a que las acciones se ejecutan en menos milisegundos que en el primer nivel
 	Milisegundos del nivel 1: 300
